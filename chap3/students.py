@@ -1,12 +1,12 @@
 students = [
-    ["Ben": {"Math": 67, "English": 78, "Science": 72}],
-    ["Mark": {"Math": 56, "Art": 92, "Science": 82}],
-    ["Ben": {"Math": 67, "History": 78, "Geography": 72}]
+    ["Ben", {"Math": 67, "English": 78, "Science": 72}],
+    ["Mark", {"Math": 56, "Art": 92, "Science": 82}],
+    ["Sam", {"Math": 67, "History": 78, "Geography": 72}]
 ]
 
 grades = [(0, "fail"), (50, "D"), (60, "C"), (70, "B"), (80, "A")]
 
-def print_report_card(report_student=None)
+def print_report_card(report_student = None):
     for student in students:
         if (student[0] == report_student) or (report_student == None):
             print("Report Card for Student: ", student[0])
@@ -16,7 +16,7 @@ def print_report_card(report_student=None)
                         print(subject, ": ", prev_grade)
                     prev_grade = grade[1]
 
-def add_student(student_name)
+def add_student(student_name):
     global students
     for student in students:
         if student[0] == student_name:
@@ -24,9 +24,9 @@ def add_student(student_name)
         students.append([student_name, {}])
         return "Student added sucessfully"
 
-def add_mark(student_name, subject, mark)
+def add_mark(student_name, subject, mark):
     global students
-    for students:
+    for student in students:
         if student[0] == student_name:
             if subject in student[1].keys():
                 print(student_name, " already has a mark for ", subject)
@@ -40,3 +40,46 @@ def add_mark(student_name, subject, mark)
                 student[subject][1] = mark
                 return "Student mark added"
     return "Student not found"
+
+
+while True:
+    print("Welcome the the Raspberry Pi student database")
+    print("What can I help you with?")
+    print("Enter 1 to view all report cards")
+    print("Enter 2 to view the report card for a student")
+    print("Enter 3 to add a student")
+    print("Enter 4 to add a mark to a student")
+    print("Enter 5 to exit")
+
+    try:
+        user_choice = int(input("Choice: "))
+    except ValueError:
+        print("That's not a number I recognise")
+        user_choice = 0
+
+    if user_choice == 1:
+        print_report_card()
+    elif user_choice == 2:
+        enter_student = input("Which student? ")
+        print_report_card(enter_student)
+    elif user_choice == 3:
+        enter_student = input("Student name? ")
+        print(add_student(enter_student))
+    elif user_choice ==4:
+        enter_student = input("Student name? ")
+        enter_subject = input("Subject? ")
+        num_error = True
+        while num_error:
+            num_error = False
+            try:
+                enter_mark = int(input("Mark? "))
+            except ValueError:
+                print("I don't recognise that as a number")
+                num_error = True
+        print(add_mark(enter_student, enter_subject, enter_mark))
+    elif user_choice == 5:
+        break
+    else:
+        print("Unknown choice")
+    input("Press enter to continue")
+print("Goodbye and thank you for using the Raspberry Pi Student database")
